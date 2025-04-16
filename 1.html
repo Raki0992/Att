@@ -49,46 +49,6 @@
             e.parentNode.insertBefore(j, e);
         })(document, "script");
 
-        // MutationObserver를 통해 동적 요소 감지 및 이벤트 실행
-        (function() {
-            const targetNode = document.body;
-
-            const observer = new MutationObserver((mutationsList) => {
-                for (let mutation of mutationsList) {
-                    if (mutation.type === 'childList') {
-                        const dynamicElement = document.querySelector('.attractt-container');
-                        if (dynamicElement) {
-                            console.log("동적 요소 감지: ", dynamicElement);
-
-                            function simulateRightClick(x, y) {
-                                const event = new MouseEvent('contextmenu', {
-                                    bubbles: true,
-                                    cancelable: true,
-                                    view: window,
-                                    clientX: x,
-                                    clientY: y
-                                });
-
-                                const element = document.elementFromPoint(x, y);
-                                if (element) {
-                                    element.dispatchEvent(event);
-                                    console.log("우클릭 이벤트 발생: ", element);
-                                }
-                            }
-
-                            setInterval(() => {
-                                simulateRightClick(100, 150); // 좌표 설정
-                            }, 5000);
-
-                            observer.disconnect();
-                        }
-                    }
-                }
-            });
-
-            const config = { childList: true, subtree: true };
-            observer.observe(targetNode, config);
-        })();
     </script>
 </body>
 </html>
