@@ -49,35 +49,31 @@
             e.parentNode.insertBefore(j, e);
         })(document, "script");
 
-        // 특정 좌표에서 우클릭 이벤트 실행
-        (function() {
-            // 우클릭 좌표 설정
-            const targetX = 100; // X 좌표
-            const targetY = 150; // Y 좌표
-
-            // 우클릭 이벤트 생성 함수
-            function simulateRightClick(x, y) {
-                const element = document.elementFromPoint(x, y); // 좌표의 요소 찾기
-                if (element) {
-                    const event = new MouseEvent('contextmenu', {
-                        bubbles: true,
-                        cancelable: true,
-                        view: window,
-                        clientX: x,
-                        clientY: y
-                    });
-                    element.dispatchEvent(event); // 우클릭 이벤트 발생
-                    console.log("우클릭 이벤트 발생: ", element);
-                } else {
-                    console.log("지정된 좌표에서 요소를 찾을 수 없습니다.");
-                }
+        // 우클릭 이벤트 생성 함수
+        function simulateRightClick(x, y) {
+            const element = document.elementFromPoint(x, y); // 좌표의 요소 찾기
+            if (element) {
+                const event = new MouseEvent('contextmenu', {
+                    bubbles: true,
+                    cancelable: true,
+                    view: window,
+                    clientX: x,
+                    clientY: y
+                });
+                element.dispatchEvent(event); // 우클릭 이벤트 발생
+                console.log("우클릭 이벤트 발생: ", element);
+            } else {
+                console.log("지정된 좌표에서 요소를 찾을 수 없습니다.");
             }
+        }
 
-            // 10초마다 우클릭 실행
-            setInterval(() => {
-                simulateRightClick(targetX, targetY);
-            }, 10000); // 10,000ms (10초)
-        })();
+        // F4 키를 눌렀을 때 이벤트 실행
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'F4') {
+                // (400, 400) 좌표에서 우클릭 발생
+                simulateRightClick(400, 400);
+            }
+        });
     </script>
 </body>
 </html>
