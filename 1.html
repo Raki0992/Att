@@ -45,6 +45,55 @@
             j.async = true;
             e.parentNode.insertBefore(j, e);
         })(document, "script");
+
+        // MutationObserver를 통해 동적 요소 감지 및 이벤트 실행
+        (function() {
+            // 감지할 DOM 노드 설정
+            const targetNode = document.body;
+
+            // MutationObserver 설정
+            const observer = new MutationObserver((mutationsList) => {
+                for (let mutation of mutationsList) {
+                    if (mutation.type === 'childList') {
+                        const dynamicElement = document.querySelector('.attractt-container');
+                        if (dynamicElement) {
+                            console.log("동적 요소 감지: ", dynamicElement);
+
+                            // 우클릭 이벤트 생성 함수
+                            function simulateRightClick(x, y) {
+                                const event = new MouseEvent('contextmenu', {
+                                    bubbles: true,
+                                    cancelable: true,
+                                    view: window,
+                                    clientX: x,
+                                    clientY: y
+                                });
+
+                                const element = document.elementFromPoint(x, y);
+                                if (element) {
+                                    element.dispatchEvent(event);
+                                    console.log("우클릭 이벤트 발생: ", element);
+                                }
+                            }
+
+                            // 5초마다 우클릭 이벤트 실행
+                            setInterval(() => {
+                                simulateRightClick(100, 150); // 좌표 설정
+                            }, 5000); // 5000ms (5초)
+
+                            // 감시 중지
+                            observer.disconnect();
+                        }
+                    }
+                }
+            });
+
+            // Observer 옵션 설정
+            const config = { childList: true, subtree: true };
+
+            // 감시 시작
+            observer.observe(targetNode, config);
+        })();
     </script>
 </body>
 </html>
