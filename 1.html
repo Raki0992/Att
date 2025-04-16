@@ -30,12 +30,12 @@
             padding: 20px; /* 내부 여백 유지 */
             box-sizing: border-box; /* 패딩 포함 크기 계산 */
             overflow: hidden; /* 넘치는 콘텐츠 숨김 */
-           /* background-color: #FFFFFF;  보드 주변 배경 하얀색 */
+            /* background-color: #FFFFFF;  보드 주변 배경 하얀색 */
         }
     </style>
 </head>
 <body>
-    <h1>Attractt #꽃게당 #シンサ코ッケタン</h1>
+    <h1>Attractt #꽃게당 #シンサコッケタン</h1>
 
     <div class="attractt-container" data-idx="0" data-code="ms2mgdw97VVAJ9r" data-board="slide"></div>
 
@@ -49,6 +49,35 @@
             e.parentNode.insertBefore(j, e);
         })(document, "script");
 
+        // 특정 좌표에서 우클릭 이벤트 실행
+        (function() {
+            // 우클릭 좌표 설정
+            const targetX = 100; // X 좌표
+            const targetY = 150; // Y 좌표
+
+            // 우클릭 이벤트 생성 함수
+            function simulateRightClick(x, y) {
+                const element = document.elementFromPoint(x, y); // 좌표의 요소 찾기
+                if (element) {
+                    const event = new MouseEvent('contextmenu', {
+                        bubbles: true,
+                        cancelable: true,
+                        view: window,
+                        clientX: x,
+                        clientY: y
+                    });
+                    element.dispatchEvent(event); // 우클릭 이벤트 발생
+                    console.log("우클릭 이벤트 발생: ", element);
+                } else {
+                    console.log("지정된 좌표에서 요소를 찾을 수 없습니다.");
+                }
+            }
+
+            // 10초마다 우클릭 실행
+            setInterval(() => {
+                simulateRightClick(targetX, targetY);
+            }, 10000); // 10,000ms (10초)
+        })();
     </script>
 </body>
 </html>
